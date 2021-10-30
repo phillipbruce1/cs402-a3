@@ -32,7 +32,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView;
-    private val itemList = arrayListOf<Task>();
+    private val itemList = TaskList();
 
     // insert adapter here
     // NOTE: every recycle view requires an adapter
@@ -47,8 +47,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this);
 
         recyclerView.adapter = adapter;
-
-        // TODO: recyclerView.getChildAt(int) or recyclerView[int] can be used to get corresponding view to select or deselect all items. use position of item in itemList
+//        itemList.initialize(recyclerView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         while (i < itemList.size) {
             if (itemList[i].selected && itemList[i].text.contains(',')) {
                 itemList[i].text.split(", ")
-                    .forEach { splitTasks.add(Task(generateTag(), it.trim())) };
+                    .forEach { splitTasks.add(Task(itemList.generateTag(), it.trim())) };
                 itemList.removeAt(i);
                 recyclerView.removeViewAt(i);
                 adapter.notifyItemRemoved(i);
@@ -116,8 +115,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun join(): Boolean {
+        println("join called")
         if (itemList.count { it.selected } <= 1)
             return deselectAll();
+        println("joining...")
         val joinedTask: StringBuilder = StringBuilder();
         var i: Int = 0;
         while (i < itemList.size) {
@@ -131,7 +132,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         joinedTask.delete(joinedTask.length - 2, joinedTask.length);
-        itemList.add(0, Task(generateTag(), joinedTask.toString()));
+        itemList.add(0, Task(itemList.generateTag(), joinedTask.toString()));
         adapter.notifyItemInserted(0);
         return deselectAll();
     }
@@ -148,15 +149,8 @@ class MainActivity : AppCompatActivity() {
         return true;
     }
 
-    /**
-     * Generates a unique id to link list items in the arrayList and within the UI
-     */
-    private fun generateTag(): String {
-        return System.currentTimeMillis().toString();
-    }
-
     fun onAddListItem(view: View) {
-        itemList.add(0, Task(generateTag()));
+        itemList.add(0, Task(itemList.generateTag()));
         adapter.notifyItemInserted(0);
     }
 

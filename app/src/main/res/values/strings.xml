@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RecycleView</string>
+    <string name="app_name">A3</string>
     <string name="newListItemDescription">Button to create a new list item</string>
     <string name="overflow_menu_icon">Overflow menu icon</string>
     <string name="split_tasks">Split task(s)</string>
