@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">RecycleView</string>
+    <string name="newListItemDescription">Button to create a new list item</string>
+    <string name="overflow_menu_icon">Overflow menu icon</string>
+    <string name="split_tasks">Split task(s)</string>
+    <string name="join_tasks">Join tasks</string>
+    <string name="select_all">Select all</string>
+    <string name="deselect_all">Deselect all</string>
+    <string name="remove_selected_task">Remove selected task(s)</string>
+</resources>

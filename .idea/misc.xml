@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Phils-Coding-Stuff/Fall 2021/CS 402/cs402-a2/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
+        <entry key="..\:/Phils-Coding-Stuff/Fall 2021/CS 402/cs402-a2/app/src/main/res/layout/list_item_view.xml" value="0.5541666666666667" />
+        <entry key="..\:/Phils-Coding-Stuff/Fall 2021/CS 402/cs402-a2/app/src/main/res/menu/floating_menu.xml" value="0.3307291666666667" />
+        <entry key="..\:/Users/pb400/Code/School/Fall 2021/CS 402/RecycleView/app/src/main/res/drawable/floating_menu.xml" value="0.5615384615384615" />
+        <entry key="..\:/Users/pb400/Code/School/Fall 2021/CS 402/RecycleView/app/src/main/res/layout/activity_main.xml" value="0.3822463768115942" />
+        <entry key="..\:/Users/pb400/Code/School/Fall 2021/CS 402/RecycleView/app/src/main/res/layout/coffee_item_view.xml" value="0.2832369942196532" />
+        <entry key="..\:/Users/pb400/Code/School/Fall 2021/CS 402/RecycleView/app/src/main/res/layout/flloating_menu.xml" value="0.38269927536231885" />
+        <entry key="..\:/Users/pb400/Code/School/Fall 2021/CS 402/RecycleView/app/src/main/res/layout/list_item_view.xml" value="0.40851449275362317" />
+        <entry key="..\:/Users/pb400/Code/School/Fall 2021/CS 402/RecycleView/app/src/main/res/layout/overflow_menu.xml" value="0.38269927536231885" />
+        <entry key="..\:/Users/pb400/Code/School/Fall 2021/CS 402/RecycleView/app/src/main/res/layout/test.xml" value="0.40851449275362317" />
+        <entry key="..\:/Users/pb400/Code/School/Fall 2021/CS 402/RecycleView/app/src/main/res/menu/floating_menu.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/pb400/Code/School/Fall 2021/CS 402/cs402-a3/app/src/main/res/layout/list_item_view.xml" value="0.3786231884057971" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

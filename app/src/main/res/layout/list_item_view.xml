@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--This is an isolated to do item-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/itemText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        android:onClick="onPressCheckbox" />
+
+    <EditText
+        android:id="@+id/itemText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="false"
+        android:layout_toEndOf="@id/checkBox"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:longClickable="true"
+        android:minHeight="48dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        tools:text="Enter a new todo item" />
+
+</RelativeLayout>

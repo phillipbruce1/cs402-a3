@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/split"
+        android:title="@string/split_tasks" />
+    <item
+        android:id="@+id/join"
+        android:title="@string/join_tasks" />
+    <item
+        android:id="@+id/remove"
+        android:title="@string/remove_selected_task" />
+    <item
+        android:id="@+id/select_all"
+        android:title="@string/select_all" />
+    <item
+        android:id="@+id/deselect_all"
+        android:title="@string/deselect_all" />
+</menu>
