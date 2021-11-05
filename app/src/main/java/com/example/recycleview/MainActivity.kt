@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView
 // use click listeners
 
 // DONE: edit text?
-// https://androidessence.com/how-to-build-a-todo-list-in-kotlin-part-2-recyclerview
 
 // DONE: checking item crosses it out and moves it to bottom of list
 
@@ -27,12 +26,12 @@ import androidx.recyclerview.widget.RecyclerView
 
 // DONE: plus button in top or bottom right for add
 
-// TODO: add toolbar menu to join, split, or delete item
+// DONE: add toolbar menu to join, split, or delete item
 // concat and split list items via commas
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView;
-    private val itemList = TaskList();
+    private val itemList = TaskList(this);
 
     // insert adapter here
     // NOTE: every recycle view requires an adapter
@@ -47,7 +46,20 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this);
 
         recyclerView.adapter = adapter;
-//        itemList.initialize(recyclerView)
+        for (i in 0 until 50) {
+            if (itemList.isLoaded()) {
+                recyclerView.adapter?.notifyDataSetChanged()
+                break;
+            } else
+                Thread.sleep(100)
+        }
+        itemList.initialize(recyclerView)
+//        println(itemList.size)
+////        Thread.sleep(5000)
+//        println(itemList.size)
+////        recyclerView.adapter?.notifyDataSetChanged()
+//        println(itemList.size)
+////        itemList.initialize(recyclerView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

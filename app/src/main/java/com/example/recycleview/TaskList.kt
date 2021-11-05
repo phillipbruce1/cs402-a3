@@ -9,32 +9,68 @@ import org.json.JSONObject
 import java.net.URL
 import java.util.concurrent.Executors
 
-class TaskList() : ArrayList<Task>() {
-    init {
+class TaskList(activity: MainActivity) : ArrayList<Task>() {
+    private var loaded = false
 
 
-        val nst = Executors.newSingleThreadExecutor()
-        nst.execute {
-            val json = URL("http://mec402.boisestate.edu/cgi-bin/cs402/shortjson")
-            val jstext = json.readText()
-            val jobject = JSONObject(jstext)
-
-            val jArray = jobject.getJSONArray("data")
-            for (i in 0 until jArray.length()) {
-                val item = jArray.getJSONObject(i)
-                add(Task(generateTag(), item.getString("name"), item.getBoolean("selected")))
+    // TODO: idk if this counts as progressive data loading bc it loads it all in chunks but doesn't show the user until it's done ¯\_(ツ)_/¯
+    private val getList = Runnable {
+        // get length of list
+        val lengthURL = "http://mec402.boisestate.edu/cgi-bin/cs402/lenjson"
+        val jsonLength = URL(lengthURL)
+        val lengthText = jsonLength.readText()
+        val lengthObj = JSONObject(lengthText)
+        val length = lengthObj.getInt("length")
+        for (i in 0 until length)
+            add(Task(generateTag(), "Loading..."))
+        // fill in list items in blocks of 10
+        var i = 0
+        while (i < length) {
+            val start = i;
+            val stop = if (i + 10 > length) length else i + 10
+            val entriesURL =
+                URL("http://mec402.boisestate.edu/cgi-bin/cs402/pagejson?start=${start}&stop=${stop}")
+            val arr = JSONObject(entriesURL.readText()).getJSONArray("data")
+            for (j in 0 until arr.length()) {
+                get(i + j).text = arr.getJSONObject(j).getString("name")
+                get(i + j).completed = arr.getJSONObject(j).getBoolean("selected")
             }
-
-            // wait for load to complete to avoid any race conditions.
-            nst.awaitTermination(Long.MAX_VALUE, java.util.concurrent.TimeUnit.NANOSECONDS)
+            i += 10
         }
+        loaded = true
+    }
+
+    fun isLoaded(): Boolean {
+        return loaded
+    }
+
+    init {
+        val nst = Executors.newSingleThreadExecutor()
+        nst.execute(getList)
+        nst.shutdown()
+
+//        nst.execute {
+//            val json = URL("http://mec402.boisestate.edu/cgi-bin/cs402/shortjson")
+//            val jstext = json.readText()
+//            val jobject = JSONObject(jstext)
+//
+//            val jArray = jobject.getJSONArray("data")
+//            for (i in 0 until jArray.length()) {
+//                val item = jArray.getJSONObject(i)
+//                add(Task(generateTag(), item.getString("name"), item.getBoolean("selected")))
+//            }
+//
+//            // wait for load to complete to avoid any race conditions.
+//            nst.awaitTermination(Long.MAX_VALUE, java.util.concurrent.TimeUnit.NANOSECONDS)
+//        }
     }
 
     fun initialize(recyclerView: RecyclerView) {
-        recyclerView[0].findViewById<CheckBox>(R.id.checkBox).isChecked
         println("fixing recycler view")
         var firstCompleted = size;
-        for (i in size - 1 until firstCompleted) {
+        println(size)
+        for (i in 0 until firstCompleted) {
+            println(get(i).text + ": " + get(i).completed)
             if (get(i).completed) {
                 val t = this.removeAt(i)
                 this.add(t)
