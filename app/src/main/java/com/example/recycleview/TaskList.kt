@@ -20,7 +20,8 @@ class TaskList(activity: MainActivity) : ArrayList<Task>() {
         val jsonLength = URL(lengthURL)
         val lengthText = jsonLength.readText()
         val lengthObj = JSONObject(lengthText)
-        val length = lengthObj.getInt("length")
+//        val length = lengthObj.getInt("length")
+        val length = 10
         for (i in 0 until length)
             add(Task(generateTag(), "Loading..."))
         // fill in list items in blocks of 10
@@ -32,8 +33,14 @@ class TaskList(activity: MainActivity) : ArrayList<Task>() {
                 URL("http://mec402.boisestate.edu/cgi-bin/cs402/pagejson?start=${start}&stop=${stop}")
             val arr = JSONObject(entriesURL.readText()).getJSONArray("data")
             for (j in 0 until arr.length()) {
-                get(i + j).text = arr.getJSONObject(j).getString("name")
-                get(i + j).completed = arr.getJSONObject(j).getBoolean("selected")
+                add(
+                    i + j,
+                    Task(
+                        removeAt(i + j).tag,
+                        arr.getJSONObject(j).getString("name"),
+                        arr.getJSONObject(j).getBoolean("selected")
+                    )
+                )
             }
             i += 10
         }

@@ -43,6 +43,8 @@ class ListAdapter(context: Context, private val itemList: ArrayList<Task>) :
     }
 
     override fun onLongClick(view: View): Boolean {
+        println(itemList.size)
+        println(itemList.count { it.selected })
         val parent = view.parent;
         if (parent !is View)
             return false;

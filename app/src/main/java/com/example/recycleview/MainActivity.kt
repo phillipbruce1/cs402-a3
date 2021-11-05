@@ -54,12 +54,6 @@ class MainActivity : AppCompatActivity() {
                 Thread.sleep(100)
         }
         itemList.initialize(recyclerView)
-//        println(itemList.size)
-////        Thread.sleep(5000)
-//        println(itemList.size)
-////        recyclerView.adapter?.notifyDataSetChanged()
-//        println(itemList.size)
-////        itemList.initialize(recyclerView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -128,6 +122,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun join(): Boolean {
         println("join called")
+        println(itemList.count { it.selected })
         if (itemList.count { it.selected } <= 1)
             return deselectAll();
         println("joining...")
