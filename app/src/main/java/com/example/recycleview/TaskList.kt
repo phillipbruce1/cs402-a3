@@ -4,6 +4,7 @@ import android.graphics.Paint
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.core.view.get
+import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import org.json.JSONObject
 import java.net.URL
@@ -13,17 +14,16 @@ class TaskList(activity: MainActivity) : ArrayList<Task>() {
     private var loaded = false
 
 
-    // TODO: idk if this counts as progressive data loading bc it loads it all in chunks but doesn't show the user until it's done ¯\_(ツ)_/¯
     private val getList = Runnable {
         // get length of list
         val lengthURL = "http://mec402.boisestate.edu/cgi-bin/cs402/lenjson"
         val jsonLength = URL(lengthURL)
         val lengthText = jsonLength.readText()
         val lengthObj = JSONObject(lengthText)
-//        val length = lengthObj.getInt("length")
-        val length = 10
+        val length = lengthObj.getInt("length")
+        val initialTag = generateTag()
         for (i in 0 until length)
-            add(Task(generateTag(), "Loading..."))
+            add(Task(initialTag + i, "Loading..."))
         // fill in list items in blocks of 10
         var i = 0
         while (i < length) {
@@ -62,20 +62,22 @@ class TaskList(activity: MainActivity) : ArrayList<Task>() {
 //            val jobject = JSONObject(jstext)
 //
 //            val jArray = jobject.getJSONArray("data")
+//            val initialTag = generateTag()
 //            for (i in 0 until jArray.length()) {
 //                val item = jArray.getJSONObject(i)
-//                add(Task(generateTag(), item.getString("name"), item.getBoolean("selected")))
+//                add(Task(initialTag + i, item.getString("name"), item.getBoolean("selected")))
 //            }
 //
+//            loaded = true
 //            // wait for load to complete to avoid any race conditions.
 //            nst.awaitTermination(Long.MAX_VALUE, java.util.concurrent.TimeUnit.NANOSECONDS)
 //        }
     }
 
     fun initialize(recyclerView: RecyclerView) {
-        println("fixing recycler view")
         var firstCompleted = size;
-        println(size)
+        if (recyclerView.size == 0)
+            return
         for (i in 0 until firstCompleted) {
             println(get(i).text + ": " + get(i).completed)
             if (get(i).completed) {

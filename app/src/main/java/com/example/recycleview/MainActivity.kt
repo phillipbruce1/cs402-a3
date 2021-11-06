@@ -1,5 +1,6 @@
 package com.example.recycleview
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,8 @@ import android.view.*
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.core.view.forEach
+import androidx.core.view.forEachIndexed
+import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -37,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     // NOTE: every recycle view requires an adapter
     private val adapter: ListAdapter = ListAdapter(this, itemList);
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -47,12 +51,12 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.adapter = adapter;
         for (i in 0 until 50) {
-            if (itemList.isLoaded()) {
-                recyclerView.adapter?.notifyDataSetChanged()
+            if (itemList.isLoaded())
                 break;
-            } else
+            else
                 Thread.sleep(100)
         }
+        recyclerView.adapter?.notifyDataSetChanged()
         itemList.initialize(recyclerView)
     }
 
@@ -111,7 +115,6 @@ class MainActivity : AppCompatActivity() {
         while (i < itemList.size) {
             if (itemList[i].selected) {
                 itemList.removeAt(i);
-                recyclerView.removeViewAt(i);
                 adapter.notifyItemRemoved(i);
             } else {
                 i++;
@@ -121,18 +124,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun join(): Boolean {
-        println("join called")
-        println(itemList.count { it.selected })
         if (itemList.count { it.selected } <= 1)
             return deselectAll();
-        println("joining...")
         val joinedTask: StringBuilder = StringBuilder();
         var i: Int = 0;
         while (i < itemList.size) {
             if (itemList[i].selected) {
                 joinedTask.append(itemList[i].text + ", ")
                 itemList.removeAt(i);
-                recyclerView.removeViewAt(i);
                 adapter.notifyItemRemoved(i);
             } else {
                 i++;
@@ -146,13 +145,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun deselectAll(): Boolean {
         itemList.forEach { it.selected = false };
-        recyclerView.forEach { it.setBackgroundColor(Color.parseColor("#ffffff")) };
+//        recyclerView.forEach { it.setBackgroundColor(Color.parseColor("#ffffff")) };
+        recyclerView.forEachIndexed { index, view -> view.setBackgroundColor(Color.parseColor("#ffffff")) }
         return true;
     }
 
     private fun selectAll(): Boolean {
         itemList.forEach { it.selected = true };
-        recyclerView.forEach { it.setBackgroundColor(Color.parseColor("#58bce8")) };
+//        recyclerView.forEach { it.setBackgroundColor(Color.parseColor("#58bce8")) };
+        recyclerView.forEachIndexed { index, view -> view.setBackgroundColor(Color.parseColor("#58bce8")) }
         return true;
     }
 
