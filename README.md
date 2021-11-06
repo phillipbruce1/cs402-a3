@@ -1,21 +1,27 @@
-# Assignment 2
+# Assignment 3
 
 Phillip Bruce CS 402
 
 ## Overview
 
-This app is designed to be a simple, intuitive todo list.
+This app is designed to be a simple, intuitive todo list. It was tested on a virtual Pixel 4 with
+API level 30.
 
 ## Function
 
-There is a "plus" button in the lower right corner of the screen to add a new task. You can check
-said task off to mark it as done, or tap on the text box to edit it. You can select tasks by
-long-pressing on the checkbox, then select any of the options from the overflow menu in the top
-right corner of the screen.
+This app was built off of the previous todo list from assignment 2. The notable difference is this
+this version progressively loads a preset list from a static JSON file on startup. It starts by
+getting the size of the list, then creating a temporary list of "Loading..." entries as placeholders
+until the rest of the items are received. Then, items are loaded from the JSON file in chunks of 10.
 
 ## Challenges
 
-I ran into frequent challenges during this project. Between learning the Kotlin syntax, to Android
-development as a whole, and everything in between, this was a new experience for me. Plus, I had to
-turn in this assignment late due to other homework and marching band. All in all though, I learned a
-lot from this project with how mobile applications work.
+This project ended up being a bit more challenging than it should have been due to my
+over-complicated design implemented in assignment 2. I ran into challenges trying to figure out how
+to load the data into a list in one thread, then update the recycle view in the main thread. I
+eventually got it to a point where it now works though.
+
+## Notes/Bugs
+
+When testing with a large list, the app will sometimes crash when using split/join on tasks not
+visible on the screen. I was unfortunately unable to remedy this issue in time for submission.
